@@ -33,7 +33,7 @@ def manage_products(request):
 def store_view(request):
     return Response({"message": "Customer access granted to the store."})
 
-
+# Cannot delete product
 # ViewSet
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -43,7 +43,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         product = self.get_object()
         if OrderItem.objects.filter(product=product).exists():
             return Response(
-                {"error": "Cannot delete product. It is part of an existing order."},
+                {"error": "Cannot delete product. It is part of an existing order."}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
         return super().destroy(request, *args, **kwargs)
